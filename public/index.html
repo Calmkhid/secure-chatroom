@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hacker Terminal Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background-color: #0f0f0f;
+      color: #00ff99;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #111;
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #00ff99;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .chat-message {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .chat-message.user .text {
+      background-color: #005f5f;
+      align-self: flex-end;
+    }
+
+    .chat-message.other .text {
+      background-color: #222;
+      align-self: flex-start;
+    }
+
+    .chat-message .name {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .text {
+      padding: 10px;
+      border-radius: 5px;
+      max-width: 60%;
+      word-wrap: break-word;
+    }
+
+    .input-container {
+      display: flex;
+      padding: 10px;
+      background-color: #111;
+      border-top: 2px solid #00ff99;
+    }
+
+    .input-container input {
+      flex: 1;
+      padding: 10px;
+      background-color: #000;
+      color: #00ff99;
+      border: 1px solid #00ff99;
+      border-radius: 3px;
+      font-family: inherit;
+    }
+
+    .input-container button {
+      padding: 10px 20px;
+      background-color: #00ff99;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      margin-left: 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background 0.3s ease;
+    }
+
+    .input-container button:hover {
+      background-color: #00cc88;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    👾 Hacker Chatroom Terminal
+  </header>
+
+  <div class="chat-container" id="chat">
+    <!-- Messages will appear here -->
+  </div>
+
+  <div class="input-container">
+    <input type="text" id="message" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+
+    function sendMessage() {
+      const input = document.getElementById('message');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('chat-message', 'user');
+      msgDiv.innerHTML = `<div class="text">${text}</div>`;
+      chat.appendChild(msgDiv);
+      chat.scrollTop = chat.scrollHeight;
+      input.value = '';
+
+      // simulate reply
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.classList.add('chat-message', 'other');
+        reply.innerHTML = `<div class="text">Encrypted reply received.</div>`;
+        chat.appendChild(reply);
+        chat.scrollTop = chat.scrollHeight;
+      }, 600);
+    }
+  </script>
+</body>
+</html>
